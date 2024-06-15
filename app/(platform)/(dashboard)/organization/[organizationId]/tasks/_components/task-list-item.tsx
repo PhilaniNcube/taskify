@@ -24,7 +24,7 @@ const TaskListItem = ({task}:{task:Task}) => {
 			<div className="w-full my-2 ">
 				<div className="flex-1">
 					<h3 className="text-base text-neutral-700 line-clamp-1">{task.title}</h3>
-					<p className="text-sm text-neutral-500">
+					<p className="text-sm text-neutral-400">
 						{formatCurrency(task.cost)}
 					</p>
 					{overdue ? (
