@@ -14,6 +14,7 @@ import {
 import { formatCurrency } from "@/lib/utils";
 import { format, compareDesc, isPast } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent } from "@/components/ui/card";
 
 const TaskListItem = ({task}:{task:Task}) => {
 
@@ -21,23 +22,27 @@ const TaskListItem = ({task}:{task:Task}) => {
 
 
   return (
-			<div className="w-full my-2 ">
-				<div className="flex-1">
-					<h3 className="text-base text-neutral-700 line-clamp-1">{task.title}</h3>
-					<p className="text-sm text-neutral-400">
-						{formatCurrency(task.cost)}
-					</p>
-					{overdue ? (
-						<p className="text-sm text-red-500">
-							Overdue: {task.dueDate && format(task?.dueDate, "PPP")}
+			<Card className="my-2">
+				<CardContent className="p-4">
+					<div className="flex-1">
+						<h3 className="text-base text-neutral-700 line-clamp-1">
+							{task.title}
+						</h3>
+						<p className="text-sm text-neutral-400">
+							{formatCurrency(task.cost)}
 						</p>
-					) : (
-						<p className="text-sm text-neutral-500">
-							Due Date: {task.dueDate && format(task?.dueDate, "PPP")}
-						</p>
-					)}
-				</div>
-			</div>
+						{overdue ? (
+							<p className="text-sm text-red-500">
+								Overdue: {task.dueDate && format(task?.dueDate, "PPP")}
+							</p>
+						) : (
+							<p className="text-sm text-neutral-500">
+								Due Date: {task.dueDate && format(task?.dueDate, "PPP")}
+							</p>
+						)}
+					</div>
+				</CardContent>
+			</Card>
 		);
 };
 export default TaskListItem;
