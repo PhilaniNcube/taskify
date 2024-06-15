@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  notStarted
+  inProgress
+  onHold
+  completed
+  archived
+}
+
+model Board {
+  id    String @id @default(uuid())
+  title String
+}
+
+model Project {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  startDate   DateTime
+  dueDate     DateTime
+  status      Status     @default(notStarted)
+  orgId       String
+  tasks       Task[]
+  budget      Int?
+  documents   Document[]
+}
+
+model Task {
+  id        String    @id @default(uuid())
+  title     String
+  startDate DateTime
+  dueDate   DateTime?
+  status    Status    @default(notStarted)
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id])
+  cost      Int       @default(0)
+  notes     Note[]
+  comments  Comment[]
+  orgId     String
+  userId    String
+}
+
+model Note {
+  id      String @id @default(uuid())
+  title   String
+  content String
+  taskId  String
+  task    Task   @relation(fields: [taskId], references: [id])
+  orgId   String
+  userId  String
+}
+
+model Document {
+  id        String  @id @default(uuid())
+  url       String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  orgId     String
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  content String
+  taskId  String
+  task    Task   @relation(fields: [taskId], references: [id])
+  orgId   String
+  userId  String
+}
