@@ -16,6 +16,7 @@ import { format, compareDesc, isPast } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import DeleteTask from "./delete-task";
 
 type TaskListItemProps = {
   task:Task;
@@ -28,12 +29,13 @@ const TaskListItem = ({ task, setSelectedTask }: TaskListItemProps) => {
 
 	return (
 		<Card
-			className="my-2"
+			className="relative my-2"
 			onClick={() => {
 				setSelectedTask(task);
         router.push(`/organization/${task.orgId}/projects/${task.projectId}?taskId=${task.id}`)
 			}}
 		>
+      <DeleteTask taskId={task.id} projectId={task.projectId} orgId={task.orgId} />
 			<CardContent className="p-4">
 				<div className="flex-1">
 					<h3 className="text-base text-neutral-700 line-clamp-1">

@@ -34,7 +34,8 @@ const ProjectTasks = ({
 
   const searchParams = useSearchParams()
 
-  const taskId = searchParams.get('taskId') || tasks[0].id
+
+  const taskId = searchParams.get('taskId') || tasks[0].id || ''
 
 	const [lastResult, formAction] = useFormState(createTask, undefined);
 
