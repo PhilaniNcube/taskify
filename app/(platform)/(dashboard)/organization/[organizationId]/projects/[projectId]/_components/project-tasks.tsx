@@ -19,11 +19,12 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import type { Task } from "@prisma/client";
 import { format, set } from "date-fns";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useId, useOptimistic, useRef, useState, useTransition } from "react";
 import { useFormState } from "react-dom";
 import TaskListItem from "../../../tasks/_components/task-list-item";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import TaskDetail from "../../../tasks/_components/task-detail";
 
 const ProjectTasks = ({
 	projectId,
@@ -31,19 +32,26 @@ const ProjectTasks = ({
 }: { projectId: string; tasks: Task[] }) => {
 	const id = useId();
 
+  const searchParams = useSearchParams()
+
+  const taskId = searchParams.get('taskId') || tasks[0].id
+
 	const [lastResult, formAction] = useFormState(createTask, undefined);
 
 	const dialogRef = useRef<HTMLButtonElement>(null);
 
 	const router = useRouter();
 
-	const [isPending, startTransition] = useTransition();
 
 	const [optimisticTasks, setOptimisticTasks] = useOptimistic(
-		tasks,
+    tasks,
 		(state, newTask: Task) => {
-			return [...state, newTask];
+      return [...state, newTask];
 		},
+	);
+
+ const [selectedTask, setSelectedTask] = useState<Task | undefined>(
+		optimisticTasks.find((task) => task.id === taskId),
 	);
 
 	const [form, fields] = useForm({
@@ -152,14 +160,26 @@ const ProjectTasks = ({
 					</Dialog>
 				</div>
 			</div>
-			<ScrollArea className="h-[400px] py-3">
-				{optimisticTasks.map((task) => {
-					return (
-					  <TaskListItem task={task} key={task.id} />
-					);
-				})}
-        <ScrollBar />
-			</ScrollArea>
+			<div className="grid gap-6 md:grid-cols-2">
+				<ScrollArea className="h-[400px] py-3">
+					{optimisticTasks.map((task) => {
+						return (
+							<TaskListItem
+								task={task}
+								key={task.id}
+								setSelectedTask={setSelectedTask}
+							/>
+						);
+					})}
+					<ScrollBar />
+				</ScrollArea>
+				<div className="w-full">
+					<TaskDetail
+						setSelectedTask={setSelectedTask}
+						task={selectedTask || optimisticTasks[0]}
+					/>
+				</div>
+			</div>
 		</div>
 	);
 };

@@ -14,6 +14,9 @@ export async function getTasks(projectId: string) {
     where: {
       projectId: projectId,
     },
+    orderBy: {
+      startDate: "asc",
+    }
   });
 
   return {

@@ -1,3 +1,4 @@
+import { Status } from '@prisma/client';
 import {z} from 'zod';
 
 export const createProjectSchema = z.object({
@@ -23,3 +24,10 @@ export const createTaskSchema = z.object({
 	projectId: z.string().uuid("You must have a valid project id"),
   cost: z.coerce.number().default(0),
 });
+
+
+export const updateTaskStatusSchema = z.object({
+  id: z.string(),
+  status: z.enum(['notStarted', 'completed', 'archived', 'onHold', 'inProgress']),
+  projectId: z.string()
+})

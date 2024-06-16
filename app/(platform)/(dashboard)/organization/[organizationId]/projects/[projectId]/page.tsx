@@ -3,6 +3,8 @@ import ProjectHeader from "./_components/project-header";
 import { getTasks } from "@/fetchers/tasks";
 import ProjectTasks from "./_components/project-tasks";
 
+export const dynamic = "force-dynamic"
+
 const ProjectPage = async ({params: {projectId}}:{params:{projectId:string}}) => {
 
   const {project, error} = await getProject(projectId)
