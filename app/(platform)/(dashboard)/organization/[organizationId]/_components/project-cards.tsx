@@ -42,18 +42,20 @@ export default ProjectCards;
 const ProjectCard = ({ project }: { project: Project }) => {
 	return (
 		<Card className="relative w-full">
+
 			<CardHeader className="flex flex-row items-center justify-between w-full text-3xl font-semibold line-clamp-1">
 				<CardTitle>{project.title}</CardTitle>
 			</CardHeader>
 			<Link href={`/organization/${project.orgId}/projects/${project.id}`}>
-				<Button size="sm" variant="primary" className="absolute top-2 right-2">
+				<Button
+					size="sm"
+					variant="primary"
+					className="absolute bottom-2 right-2"
+				>
 					<EyeIcon className="mr-2" /> View Project
 				</Button>
 			</Link>
 			<CardContent className="relative">
-				<div className="absolute top-2 right-2">
-					<ProjectStatus status={project.status} />
-				</div>
 				<div>
 					<h1 className="text-lg font-semibold">Description</h1>
 					<p className="text-base line-clamp-3 text-neutral-700">

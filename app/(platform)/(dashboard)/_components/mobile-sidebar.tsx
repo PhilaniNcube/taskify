@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
@@ -29,9 +28,9 @@ const MobileSideBar = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log("MobileSidebar", pathname);
-		onClose();
-	}, [pathname, onClose]);
+        console.log("MobileSidebar", pathname);
+        onClose();
+    }, [pathname, onClose]);
 
 	if (!isMounted) return null;
 

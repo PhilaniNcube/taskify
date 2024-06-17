@@ -7,9 +7,9 @@ import { createTaskSchema } from "@/schema";
 import { revalidatePath } from "next/cache";
 
 export async function createTask(prevState: unknown, formData: FormData) {
-	const { userId, orgId } = auth();
+    const { userId, orgId } = auth();
 
-	if (!userId || !orgId) {
+    if (!userId || !orgId) {
 		return {
 			status: "error",
 			error: {
@@ -18,21 +18,21 @@ export async function createTask(prevState: unknown, formData: FormData) {
 		};
 	}
 
-	const validatedFields = parseWithZod(formData, {
+    const validatedFields = parseWithZod(formData, {
 		schema: createTaskSchema,
 	});
 
-  console.log(validatedFields);
+    console.log(validatedFields);
 
-	if (validatedFields.status !== "success") {
+    if (validatedFields.status !== "success") {
 		return {
 			status: validatedFields.reply().status,
 			error: validatedFields.reply().error,
 		};
 	}
 
-	// create the task
-	const task = await db.task.create({
+    // create the task
+    const task = await db.task.create({
 		data: {
 			title: validatedFields.value.title,
 			startDate: validatedFields.value.startDate,
@@ -44,11 +44,11 @@ export async function createTask(prevState: unknown, formData: FormData) {
 		},
 	});
 
-	revalidatePath(
+    revalidatePath(
 		`/organization/${orgId}/projects/${validatedFields.value.projectId}`,
 	);
 
-	return {
+    return {
 		status: "success",
 		error: null,
 		data: task,

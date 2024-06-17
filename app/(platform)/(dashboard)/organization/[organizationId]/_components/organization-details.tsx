@@ -1,5 +1,4 @@
 "use client";
-
 import { useOrganization } from "@clerk/nextjs";
 import { CircleDashed } from "lucide-react";
 import Image from "next/image";

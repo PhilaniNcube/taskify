@@ -5,16 +5,16 @@ const ProjectStatus = ({status}:{status: Project['status']}) => {
   return (
 			<div>
 				{status === "completed" && (
-					<Badge className="bg-green-600 ">Completed</Badge>
+					<Badge className="text-xs bg-green-600">Completed</Badge>
 				)}
 				{status === "archived" && (
-					<Badge className=" bg-slate-700">Archived</Badge>
+					<Badge className="text-xs bg-slate-700">Archived</Badge>
 				)}
 				{status === "inProgress" && (
-					<Badge className="bg-blue-600 ">In Progress</Badge>
+					<Badge className="text-xs bg-blue-600 ">In Progress</Badge>
 				)}
 				{status === "notStarted" && (
-					<Badge className=" bg-zinc-800">Not Started</Badge>
+					<Badge className="text-xs bg-zinc-800">Not Started</Badge>
 				)}
 			</div>
 		);
