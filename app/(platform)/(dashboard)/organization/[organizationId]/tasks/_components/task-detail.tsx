@@ -52,13 +52,6 @@ const TaskDetail = ({ task, setSelectedTask }: TaskDetailProps) => {
 
 	return (
 		<Card className={cn("relative", pending ? "animate-pulse" : "opacity-100")}>
-			<Badge className="absolute top-3 right-3">
-				{optimisticTask.status === "archived" && "Archived"}
-				{optimisticTask.status === "completed" && "Completed"}
-				{optimisticTask.status === "inProgress" && "In Progress"}
-				{optimisticTask.status === "notStarted" && "Not Started"}
-				{optimisticTask.status === "onHold" && "On Hold"}
-			</Badge>
 			<CardHeader>
 				<CardTitle>{task.title}</CardTitle>
 				<p>{formatCurrency(task.cost)}</p>
@@ -83,31 +76,71 @@ const TaskDetail = ({ task, setSelectedTask }: TaskDetailProps) => {
 				<div className="flex flex-wrap items-center mt-2 space-x-3">
 					<form action={formAction}>
 						<Input type="hidden" name="status" value="inProgress" />
-						<Button size="sm" variant="ghost" type="submit">
+						<Button
+							size="sm"
+							variant="ghost"
+							type="submit"
+							className={cn(
+								"",
+								task.status === "inProgress" && "shadow-lg bg-slate-200",
+							)}
+						>
 							In Progress
 						</Button>
 					</form>{" "}
 					<form action={formAction}>
 						<Input type="hidden" name="status" value="notStarted" />
-						<Button size="sm" variant="ghost" type="submit">
+						<Button
+							size="sm"
+							variant="ghost"
+							type="submit"
+							className={cn(
+								"",
+								task.status === "notStarted" && "shadow-lg bg-slate-200",
+							)}
+						>
 							Not Started
 						</Button>
 					</form>{" "}
 					<form action={formAction}>
 						<Input type="hidden" name="status" value="onHold" />
-						<Button size="sm" variant="ghost" type="submit">
+						<Button
+							size="sm"
+							variant="ghost"
+							type="submit"
+							className={cn(
+								"",
+								task.status === "onHold" && "shadow-lg bg-slate-200",
+							)}
+						>
 							On Hold
 						</Button>
 					</form>{" "}
 					<form action={formAction}>
 						<Input type="hidden" name="status" value="completed" />
-						<Button size="sm" variant="ghost" type="submit">
+						<Button
+							size="sm"
+							variant="ghost"
+							type="submit"
+							className={cn(
+								"",
+								task.status === "completed" && "shadow-lg bg-slate-200",
+							)}
+						>
 							Completed
 						</Button>
 					</form>{" "}
 					<form action={formAction}>
 						<Input type="hidden" name="status" value="archived" />
-						<Button size="sm" variant="ghost" type="submit">
+						<Button
+							size="sm"
+							variant="ghost"
+							type="submit"
+							className={cn(
+								"",
+								task.status === "archived" && "shadow-lg bg-slate-200",
+							)}
+						>
 							Archived
 						</Button>
 					</form>

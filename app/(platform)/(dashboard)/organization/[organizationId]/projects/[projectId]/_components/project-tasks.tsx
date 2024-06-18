@@ -24,6 +24,7 @@ import { useFormState } from "react-dom";
 import TaskListItem from "../../../tasks/_components/task-list-item";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import TaskDetail from "../../../tasks/_components/task-detail";
+import UploadDocuments from "./upload-document";
 
 const ProjectTasks = ({
 	projectId,
@@ -173,11 +174,12 @@ const ProjectTasks = ({
 					})}
 					<ScrollBar />
 				</ScrollArea>
-				<div className="w-full">
+				<div className="flex flex-col items-start w-full space-y-4">
 					<TaskDetail
 						setSelectedTask={setSelectedTask}
 						task={selectedTask || optimisticTasks[0]}
 					/>
+          <UploadDocuments />
 				</div>
 			</div>
 		</div>
