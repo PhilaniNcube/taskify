@@ -5,37 +5,52 @@
  */
 "use client";
 
-import {type JSX, type SVGProps, useState } from "react";
+import {type JSX, type SVGProps, useState, useTransition,  } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FileIcon, TrashIcon, UploadIcon } from "lucide-react";
+import SubmitButton from "@/components/submit-button";
+import { uploadFile } from "@/actions/upload-file";
 
-export default function UploadDocuments() {
+export default function UploadDocuments({projectId}:{projectId:string}) {
 
   const [files, setFiles] = useState<File[]>([]);
+
+  const [pending, startTransition] = useTransition();
 
 	return (
 		<div className="w-full p-6 rounded-lg shadow-md bg-slate-100 dark:bg-gray-900">
 			<div className="mb-6">
 				<h2 className="mb-2 text-2xl font-bold">Upload Documents</h2>
-				<p className="text-gray-500 dark:text-gray-400">
-					Drag and drop files or click to select.
-				</p>
+				<p className="text-gray-500 dark:text-gray-400">Click to select.</p>
 			</div>
 			<div
 				// onDragOver={(event) => event.preventDefault()}
 				// onDrop={handleDrop}
 				className="flex flex-col items-center justify-center p-3 mb-6 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
 			>
-
-
-				<Input
-					id="file-upload"
-					type="file"
-					multiple
-					className=""
-					// onChange={handleFileSelect}
-				/>
+				<form
+					className="flex items-center justify-between w-full gap-x-3"
+					action={async (formData:FormData) => {
+						startTransition(() => {
+               uploadFile(formData);
+            });
+					}}
+				>
+					<Input type="hidden" name="projectId" value={projectId} />
+					<Input
+						id="file-upload"
+						name="file"
+						type="file"
+						className=""
+            disabled={pending}
+            aria-disabled={pending}
+						// onChange={handleFileSelect}
+					/>
+					<SubmitButton>
+						<UploadIcon className="w-6 h-6" />
+					</SubmitButton>
+				</form>
 			</div>
 			{files.length > 0 && (
 				<div className="mb-6">

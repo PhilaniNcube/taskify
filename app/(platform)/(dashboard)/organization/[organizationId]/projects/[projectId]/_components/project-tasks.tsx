@@ -179,7 +179,7 @@ const ProjectTasks = ({
 						setSelectedTask={setSelectedTask}
 						task={selectedTask || optimisticTasks[0]}
 					/>
-          <UploadDocuments />
+          <UploadDocuments projectId={projectId} />
 				</div>
 			</div>
 		</div>
