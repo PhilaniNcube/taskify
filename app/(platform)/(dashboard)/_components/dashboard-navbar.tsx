@@ -33,6 +33,8 @@ export const DashboardNavbar = () => {
 					afterSelectOrganizationUrl="/organization/:id"
 					afterCreateOrganizationUrl="/organization/:id"
 					afterLeaveOrganizationUrl="/select-org"
+          createOrganizationMode="modal"
+
 					appearance={{
 						elements: {
 							rootBox: {
